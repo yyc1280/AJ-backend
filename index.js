@@ -7,6 +7,8 @@ dotenv.config()
 const authRoute = require("./routes/auth-route")
 const productRoute = require("./routes/product-route")
 const paymentRoute = require("./routes/payment-route")
+
+const MongoStore = require("connect-mongo")
 // require("ECPAY_Payment_node_js")
 require("./ECPAY_Payment_node_js")
 
@@ -37,15 +39,19 @@ app.use(
   cors({
     origin: [process.env.BS_URL, process.env.FE_URL],
     // origin: process.env.FE_URL,
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
     credentials: true, // allow session cookie from browser to pass through
   })
 )
+app.set("trust proxy", 1)
+app.enable("trust proxy")
 app.use(
   session({
     secret: process.env.SECRET,
     resave: false,
     saveUninitialized: true,
+    proxy: true,
+    store: MongoStore.create({ mongoUrl: process.env.DB }),
   })
 )
 app.use(passport.initialize())
