@@ -1,3 +1,4 @@
+port = process.env.PORT || 8080
 const express = require("express")
 const app = express()
 const mongoose = require("mongoose")
@@ -58,6 +59,6 @@ app.get("/", (req, res) => {
   res.send("hello it's me")
 })
 
-app.listen(8080, () => {
+app.listen(port, () => {
   console.log("server running~")
 })
