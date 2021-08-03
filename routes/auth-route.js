@@ -21,26 +21,14 @@ router.get("/google/redirect", passport.authenticate("google"), (req, res) => {
 })
 
 router.get("/login/success", (req, res) => {
-  console.log(req.user)
-  console.log(req.method)
+  // console.log(req.user)
+
   res.send({
     success: true,
     message: "user has successfully authenticated",
     user: req.user,
     cookies: req.cookies,
   })
-  // if (req.user) {
-  //   console.log("got req.user")
-  //   res.json({
-  //     success: true,
-  //     message: "user has successfully authenticated",
-  //     user: req.user,
-  //     cookies: req.cookies,
-  //   })
-  // } else {
-  //   console.log("login failed")
-  //   res.status(404).send("login failed")
-  // }
 })
 
 router.get("/logout", (req, res) => {

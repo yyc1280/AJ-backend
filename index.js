@@ -52,6 +52,10 @@ app.use(
     saveUninitialized: true,
     proxy: true,
     store: MongoStore.create({ mongoUrl: process.env.DB }),
+    cookie: {
+      sameSite: "none",
+      secure: true,
+    },
   })
 )
 app.use(passport.initialize())
